@@ -1,0 +1,35 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://TransparencyDither/transparency_dither.gdshader" type="Shader" id=1]
+[ext_resource path="res://TransparencyDither/ExampleDitherRamp.png" type="Texture" id=2]
+[ext_resource path="res://TransparencyDither/test.png" type="Texture" id=3]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 1 )
+shader_param/dithersize = 8
+shader_param/alpha = 1.0
+shader_param/ditherpattern = ExtResource( 2 )
+shader_param/maintex = ExtResource( 3 )
+
+[sub_resource type="SphereMesh" id=2]
+material = SubResource( 1 )
+
+[sub_resource type="Gradient" id=3]
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="CubeMesh" id=4]
+
+[node name="Spatial" type="Spatial"]
+
+[node name="CPUParticles" type="CPUParticles" parent="."]
+mesh = SubResource( 2 )
+direction = Vector3( 0, 1, 0 )
+gravity = Vector3( 0, 1, 0 )
+initial_velocity = 1.0
+initial_velocity_random = 1.0
+color_ramp = SubResource( 3 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1 )
+mesh = SubResource( 4 )
+material/0 = null
